@@ -12,11 +12,15 @@ class BattleWeb < Sinatra::Base
 	@@settings = {}
 
 	get '/test/who' do
-		session[:who]
+		session[:visitor]
 	end
 
 	get '/test' do
-		session[:who]=rand.to_s
+		if session.has_key?(:visitor)
+			"key exists already exists"
+		else
+			session[:visitor]=rand.to_s
+		end
 	end
 
 
