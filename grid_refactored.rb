@@ -1,4 +1,4 @@
-require 'ship'
+require './ship'
 class Grid
 	attr_reader :max_range, :ships, :hits_and_misses		#for testing only
 	def initialize(max_range=10)
@@ -38,7 +38,7 @@ class Grid
 	def place(ship, orientation, position)
 		raise 'The instance of the ship already exists' if ships.has_value?(ship)
 		coordinates = generate_coordinates(ship, orientation, position)
-		verify_ship_coordinates(coordinates).each {|coordinate| ships[coordinate] = ship}
+		verify_ship_coordinates(coordinates).each {|coordinate| @ships[coordinate] = ship}	# bug spotted, was ships, not @ships
 		return ships
 	end
 

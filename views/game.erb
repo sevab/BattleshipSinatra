@@ -1,0 +1,35 @@
+<!-- substitute 10 for Grid.max_range ; &nbsp;&nbsp;&nbsp;&nbsp; █ -->
+
+<form method='POST'>
+<!-- blank first cell-->
+<input type="radio" id="" name="">
+<label id="blank" for="radio1"></label>
+
+<% (@@grid.max_range).times do %><!-- number; is id & for useless? change bg-colour to white? -->
+	<input type="radio" name="numbers" id="<%= @b.to_s %>" disabled>
+	<label id="blank" for="<%= @b.to_s %>">&nbsp;&nbsp;<%= @b.to_s %></label>
+	<% @b=@b.next %>
+<% end %>
+<br>
+
+<% (@@grid.max_range).times do %>
+	
+	<!-- letter -->
+	<input type="radio" name="letter" id="<%= @a.to_s %>" disabled>
+	   <label id="blank" for="<%= @a.to_s %>"><%= @a.to_s %></label>
+	   <% @a=@a.next %>
+
+	<!-- real cell -->
+	<% @symbol = @start %>
+	<% (@@grid.max_range).times do %>
+		<input type="radio" name="coordinate" id="<%= @symbol %>" value="<%= @symbol %>" <%= "disabled" if @@grid.hits_and_misses.has_key?(@symbol.to_sym) %> onclick="this.form.submit();">
+		<label for="<%= @symbol %>" id="<%= @@grid.hits_and_misses[@symbol.to_sym] %>">&nbsp;</label>
+
+		<% @symbol = @symbol.delete('0-9') + @symbol.delete('A-Z').next %>
+	<% end %>
+	<% @start = @start.delete('0-9').next + @start.delete('A-Z') %>
+
+	<br>
+<% end %>
+</form>
+<br>

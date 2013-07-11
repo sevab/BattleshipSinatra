@@ -27,11 +27,24 @@ input[type=radio] + label {
 
 }
 
+input[type=radio]:hover + label:hover {
+  background-color:pink;
+}
+
+
 #blank {
   background-color: white;
   border: none;
   text-align: right;
 }
+#true {
+  background-color: green;
+}
+
+#false {
+  background-color: red;
+}
+
 /*
  Change background color for label next to checked radio button
  to make it look like highlighted button

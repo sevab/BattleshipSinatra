@@ -1,0 +1,49 @@
+<!-- substitute 10 for Grid.max_range ; &nbsp;&nbsp;&nbsp;&nbsp; █ -->
+
+<form method='POST'>
+<div style=""> <!-- display:inline; float:left -->
+<!-- blank first cell-->
+<input type="radio" id="" name="">
+<label id="blank" for="radio1"></label>
+
+<% (@@grid.max_range).times do %><!-- number; is id & for useless? change bg-colour to white? -->
+	<input type="radio" name="numbers" id="<%= @b.to_s %>" disabled>
+	<label id="blank" for="<%= @b.to_s %>">&nbsp;&nbsp;<%= @b.to_s %></label>
+	<% @b=@b.next %>
+<% end %>
+<br>
+
+<% (@@grid.max_range).times do %>
+	
+	<!-- letter -->
+	<input type="radio" name="letter" id="<%= @a.to_s %>" disabled>
+	   <label id="blank" for="<%= @a.to_s %>"><%= @a.to_s %></label>
+	   <% @a=@a.next %>
+
+	<!-- real cell -->
+	<% @symbol = @start %>
+	<% (@@grid.max_range).times do %>
+		<input type="radio" name="coordinate" id="<%= @symbol %>" value="<%= @symbol %>" <%= "disabled" if @@grid.ships.has_key?(@symbol.to_sym) %> onclick="this.form.submit();">
+		<label for="<%= @symbol %>" id="<%= true if @@grid.ships.has_key?(@symbol.to_sym) %>">&nbsp;</label>
+
+		<% @symbol = @symbol.delete('0-9') + @symbol.delete('A-Z').next %>
+	<% end %>
+	<% @start = @start.delete('0-9').next + @start.delete('A-Z') %>
+
+	<br>
+<% end %>
+</div>
+<div style=""> <!-- position: relative; left: 30px; top: 100px; -->
+	<h1><%= @@fleet.first[0].to_s.capitalize %></h1>
+	<input type="radio" id="horizontal" name="orientation" value="horizontal" checked>
+	<label for="horizontal" style="width:100px">Horizontal</label>
+	<input type="radio" id="vertical" name="orientation" value="vertical">
+	<label for="vertical" style="width:100px" >Vertical</label>
+</div>
+
+</form>
+<br>
+
+
+
+<!-- only difference between game.erb is @@grid.ships.has_key? So refactor into one view-->
