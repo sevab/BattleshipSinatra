@@ -1,10 +1,10 @@
-# Classic Battleship Game implementation as a Web App in Sinatra
+## Classic Battleship Game implementation as a Web App in Sinatra
 * Session support of multiple pairs of players
 
-## Add ships to the board
+### Add ships to the board
 ![alt tag](./screen_shot1.png)
 
-## Play the Battleship Game with a player on the other end of the wire
+### Play the Battleship Game with a player on the other end of the wire
 ![alt tag](./screenshot_2.png)
 
 
