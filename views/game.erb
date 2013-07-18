@@ -1,4 +1,12 @@
+
 <!-- substitute 10 for Grid.max_range ; &nbsp;&nbsp;&nbsp;&nbsp; █ -->
+
+<% if @print_warning %>
+<div style="width: 400px; height:400px: background-color:pink;">
+	<h1>Not Your turn</h1>
+	<p> This page will reload automatically </p>
+</div>
+<% end %>
 
 <form method='POST'>
 <!-- blank first cell-->
@@ -22,7 +30,7 @@
 	<!-- real cell -->
 	<% @symbol = @start %>
 	<% (@grid.max_range).times do %>
-		<input type="radio" name="coordinate" id="<%= @symbol %>" value="<%= @symbol %>" <%= "disabled" if @grid.hits_and_misses.has_key?(@symbol.to_sym) %> onclick="this.form.submit();">
+		<input type="radio" name="coordinate" id="<%= @symbol %>" value="<%= @symbol %>" <%= "disabled" if @grid.hits_and_misses.has_key?(@symbol.to_sym) || @print_warning %> onclick="this.form.submit();">
 		<label for="<%= @symbol %>" id="<%= @grid.hits_and_misses[@symbol.to_sym] %>">&nbsp;</label>
 
 		<% @symbol = @symbol.delete('0-9') + @symbol.delete('A-Z').next %>
@@ -32,4 +40,46 @@
 	<br>
 <% end %>
 </form>
+<br>
+
+
+
+
+<!-- ############################### -->
+
+<!-- blank first cell-->
+<input type="radio" id="" name="">
+<label id="blank" for="radio1"></label>
+
+<% (@own_grid.max_range).times do %><!-- number; is id & for useless? change bg-colour to white? -->
+	<input type="radio" id="<%= @bb.to_s %>" disabled>
+	<label id="blank" for="<%= @bb.to_s %>">&nbsp;&nbsp;<%= @bb.to_s %></label>
+	<% @bb=@bb.next %>
+<% end %>
+<br>
+
+<% (@own_grid.max_range).times do %>
+	
+	<!-- letter -->
+	<input type="radio" id="<%= @aa.to_s %>" disabled>
+	   <label id="blank" for="<%= @aa.to_s %>"><%= @aa.to_s %></label>
+	   <% @aa=@aa.next %>
+
+	<!-- real cell -->
+	<% @symbol = @sstart %>
+	<% (@own_grid.max_range).times do %>
+		<% if @own_grid.ships.has_key?(@symbol.to_sym) then @indicator = true %>
+			<% @indicator = false if @own_grid.hits_and_misses[@symbol.to_sym] %>
+		<% else @indicator = nil %>
+		<% end %>
+		<input type="radio" <%= "id=\"#{@indicator}\"" unless @indicator == nil %> disabled>
+		<label <%= "id=\"#{@indicator}\"" unless @indicator == nil %>>&nbsp;</label>
+		<!-- !@own_grid.hits_and_misses[@symbol.to_sym] -->
+		<% @symbol = @symbol.delete('0-9') + @symbol.delete('A-Z').next %>
+	<% end %>
+	<% @sstart = @sstart.delete('0-9').next + @sstart.delete('A-Z') %>
+
+	<br>
+<% end %>
+
 <br>

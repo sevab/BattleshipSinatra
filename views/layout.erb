@@ -2,6 +2,9 @@
   <head>
   	<link rel="stylesheet" type="text/css" href="style.css">
     <title>The Battlefield</title>
+    <% if @print_warning %>
+    <meta http-equiv="refresh" content="3"/>
+    <% end %>
   </head>
   <body>
     <%= yield %>

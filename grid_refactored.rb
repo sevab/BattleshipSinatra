@@ -1,10 +1,11 @@
 require './ship'
 class Grid
-	attr_reader :max_range, :ships, :hits_and_misses		#for testing only
+	attr_reader :max_range, :ships, :hits_and_misses, :fleet		#for testing only
 	def initialize(max_range=10)
 		@max_range = max_range
 		@ships = Hash.new
 		@hits_and_misses = Hash.new
+	  	@fleet = [[:carrier, 5], [:battleship, 4], [:cruiser, 3], [:destroyer, 2], [:submarine, 1]]
 	end
 
 	# refactor using e_num (Pickaxe), where don't have to reasign position; the block resumes
@@ -54,7 +55,24 @@ class Grid
 			@hits_and_misses[coordinate] = true
 		else
 			@hits_and_misses[coordinate] = false
-		end	
-
+		end
 	end
+
+
+	def load_fleet(orientation, position)
+		if !@fleet.empty?
+			self.place( Ship.new(@fleet.shift[1]), orientation, position)
+		else
+			raise 'The fleet is out of ships'
+		end
+	end
+
+	def next_ship
+		@fleet.first.first
+	end
+
+	def fleet_empty?
+		@fleet.empty?
+	end
+
 end
