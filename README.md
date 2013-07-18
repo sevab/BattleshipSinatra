@@ -1,5 +1,5 @@
 # Classic Battleship Game implementation as a Web App in Sinatra
-> Session support of multiple pairs of players
+* Session support of multiple pairs of players
 
 ## Add ships to the board
 ![alt tag](./screen_shot1.png)
